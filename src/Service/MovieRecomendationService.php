@@ -2,7 +2,9 @@
 
 namespace App\Service;
 
-class MovieRecommendationService
+use App\Service\Recommendation\RecommendationStrategyInterface;
+
+final class MovieRecommendationService
 {
     private array $movies;
 
@@ -11,27 +13,8 @@ class MovieRecommendationService
         $this->movies = require $moviesFilePath;
     }
 
-    public function getRandomMovies(int $count = 3): array
+    public function getRecommendations(RecommendationStrategyInterface $strategy): array
     {
-        $count = min($count, count($this->movies));
-        $keys = (array) array_rand($this->movies, $count);
-
-        return array_map(function ($key) {
-            return $this->movies[$key];
-        }, $keys);
-    }
-
-    public function getEvenLengthMoviesStartingWithW(): array
-    {
-        return array_filter($this->movies, function ($movie) {
-            return str_starts_with($movie, 'W') && strlen($movie) % 2 === 0;
-        });
-    }
-
-    public function getMultiWordMovies(): array
-    {
-        return array_filter($this->movies, function ($movie) {
-            return str_word_count($movie, 0) > 1;
-        });
+        return $strategy->recommend($this->movies);
     }
 }
