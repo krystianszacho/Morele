@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rekomendacje filmów{% endblock %}
+
+{% block body %}
+    <h1>Rekomendacje filmów</h1>
+
+    <h2>Losowe filmy</h2>
+    <ul>
+        {% for movie in random_movies %}
+            <li>{{ movie }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Filmy zaczynające się na "W" o parzystej długości</h2>
+    <ul>
+        {% for movie in movies_starting_with_w %}
+            <li>{{ movie }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Filmy składające się z więcej niż jednego słowa</h2>
+    <ul>
+        {% for movie in multi_word_movies %}
+            <li>{{ movie }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

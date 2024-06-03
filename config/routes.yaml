@@ -1,0 +1,7 @@
+controllers:
+    resource: ../src/Controller/
+    type: attribute
+
+movies:
+    path: /movies
+    controller: App\Controller\MovieController::index
